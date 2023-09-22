@@ -1,0 +1,84 @@
+// start portfolio_details
+
+.portfolio_details {
+  .head {
+    padding: 70px 0;
+    text-align: center;
+
+    .subtitle {
+      font-size: 18px;
+      color: gray;
+    }
+
+    .title {
+      font-size: 40px;
+    }
+  }
+
+  .main_img {
+    margin-bottom: 25px;
+  }
+
+  .images {
+    .image {
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        .icon_zoom {
+          scale: 1;
+        }
+      }
+
+      > img {
+        height: 350px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .icon_zoom {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        transition: all 0.4s;
+        scale: 0;
+
+        img {
+          width: 25px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio_details {
+    padding: 0 15px;
+
+    .head {
+      padding: 30px 0;
+
+      .subtitle {
+        font-size: 15px;
+      }
+
+      .title {
+        font-size: 30px;
+      }
+    }
+
+    .main_img {
+        img {
+            height: 300px;
+        }
+    }
+    
+    .images {
+        .image {
+            > img {
+                height: 250px;
+            }
+        }
+    }
+  }
+}

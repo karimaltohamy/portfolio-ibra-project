@@ -1,0 +1,75 @@
+// start ProjectsSection
+.projects_section {
+  position: relative;
+  z-index: 99;
+
+  .boxs {
+    .box {
+      height: 420px;
+      overflow: hidden;
+      position: relative;
+
+      &:nth-child(even) {
+        margin-top: 70px;
+      }
+
+      .image {
+        height: 100%;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .text {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        .type {
+          color: rgba(255, 255, 255, 1);
+          display: block;
+        }
+
+        .title {
+          font-size: 25px;
+          font-weight: 500;
+          margin-bottom: 5px;
+        }
+
+        .icon_arrow {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid white;
+
+          svg {
+            width: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 768px) {
+    .projects_section {
+        padding: 0 15px;
+
+        .boxs {
+            .box {
+                height: 320px;
+
+                &:nth-child(even) {
+                    margin-top: 0px;
+                  }
+            }
+        }
+    }
+}
+// end ProjectsSection
