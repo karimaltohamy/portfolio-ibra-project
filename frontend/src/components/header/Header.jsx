@@ -11,7 +11,7 @@ const Header = () => {
     <header className=" py-3">
       <div className="container m-auto">
         <div className="line flex items-center justify-between">
-          <Link to="/">
+          <Link to="/" className="">
             <img
               src={logoImg}
               alt="logo"

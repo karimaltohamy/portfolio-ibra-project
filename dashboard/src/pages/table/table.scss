@@ -1,0 +1,51 @@
+.table_container {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .title_list {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn_add {
+      padding: 4px 15px;
+      background-color: rgb(10, 195, 90);
+      color: white;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+  }
+
+  .cellActions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .btn {
+      padding: 0px 5px;
+      border-radius: 5px;
+      svg {
+        width: 15px;
+      }
+
+      &.btn_view {
+        background-color: rgb(42, 119, 235);
+        color: white;
+      }
+
+      &.btn_delete {
+        background-color: rgb(225, 7, 7);
+        color: white;
+      }
+    }
+  }
+}
