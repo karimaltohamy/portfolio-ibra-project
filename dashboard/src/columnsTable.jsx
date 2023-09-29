@@ -1,5 +1,23 @@
 export const columnsUser = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "_id", headerName: "ID", width: 90 },
+  {
+    field: "avatar",
+    headerName: "Avatar",
+    width: 150,
+    sortable: false,
+    editable: true,
+    renderCell: (params) => 
+     {
+      return <img
+        src={params.value}
+        alt="main-img"
+        loading="lazy"
+        className="w-[50px] h-[50px] rounded-full"
+      />}
+    
+    
+  },
+
   {
     field: "firstName",
     headerName: "First name",
@@ -24,23 +42,26 @@ export const columnsUser = [
     width: 110,
     editable: true,
   },
-  
 ];
 
 export const columnsProject = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "_id", headerName: "ID", width: 90 },
   {
     field: "mainImg",
     headerName: "Image",
     width: 150,
+    sortable: false,
     editable: true,
-    renderCell: (params) => {
-      return (
-        <div className="mainImg">
-          <img src={params.mainImg} alt="main-img" loading="lazy" />
-        </div>
-      );
-    },
+    renderCell: (params) => 
+     {
+      return <img
+        src={params.value}
+        alt="main-img"
+        loading="lazy"
+        className="w-[50px] h-[50px] rounded-full"
+      />}
+    
+    
   },
   {
     field: "title",

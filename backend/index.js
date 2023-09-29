@@ -6,13 +6,13 @@ const cors = require("cors");
 const  conactionMongodb = require("./db/database");
 const gloabelError = require("./middleware/globalError");
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: "http://localhost:5174",
-//     optionsSuccessStatus: 200, // For legacy browser support
-//   })
-// );
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:5174", "http://localhost:5173"],
+    optionsSuccessStatus: 200, // For legacy browser support
+  })
+);
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config({ path: "./config/.env" });
@@ -28,8 +28,8 @@ const user = require("./routes/user")
 const project = require("./routes/project")
 
 app.use("/api/v1/auth", auth)
-app.use("/api/v1/user", user)
-app.use("/api/v1/project", project)
+app.use("/api/v1/users", user)
+app.use("/api/v1/projects", project)
 
 
 

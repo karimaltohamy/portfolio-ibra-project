@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContaxt } from "../../context/AuthContext";
+import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Loader from "../../components/loader/Loader";
+import apiRequest from "../../utils/apiRequest";
 
 const Login = () => {
-    const [inputs, setInputs] = useState({
-        email: "",
-        password: ""
-    })
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
+  const { loading, error,user, dispatch } = useContext(UserContaxt);
+  const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setInputs({...inputs, [e.target.id]: e.target.value})
-    }
+  const handleChange = (e) => {
+    setInputs({ ...inputs, [e.target.id]: e.target.value });
+  };
 
-    const handleLogin = () => {
-        console.log(inputs);
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    dispatch({ type: "LOADING" });
+    try {
+      const { data } = await apiRequest.post("/auth/login", inputs);
+      dispatch({ type: "SUCCESS", payload: data.info });
+      navigate("/");
+      toast.success("login successfull");
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: "ERROR", payload: error });
     }
+  };
+
+  if (user) {
+    return <Navigate to={"/"} /> 
+  }
 
   return (
     <div
-      className="login_page h-[100vh] w-full flex items-center justify-center bg-blue-100 p-5"
+      className="login_page h-[100vh] w-full flex items-center justify-center bg-blue-100 p-5 relative"
       style={{ background: "linear-gradient(-45deg,#9941fc 20%,#0ab39c)" }}
     >
-      <div className="content p-5 borde rounded bg-white w-full max-w-[500px]">
+      {loading ? <Loader /> : <div className="content p-5 borde rounded bg-white w-full max-w-[500px]">
         <div className="head text-center pt-3 pb-8 ">
           <h4 className="text-[20px] font-semibold">Welcome Back !</h4>
           <p className="text-[15px] text-gray-500">Sign in to continue </p>
@@ -56,7 +78,7 @@ const Login = () => {
             Login
           </button>
         </form>
-      </div>
+      </div>}
     </div>
   );
 };

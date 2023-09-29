@@ -23,7 +23,7 @@ svg {
 
 .section_dash {
   margin: 0 15px;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 // start main
@@ -36,12 +36,6 @@ main {
     min-width: 250px;
     max-width: 270px;
     transition: all 0.3s;
-
-    &.close_sidebar {
-      width: 70px;
-      min-width: 70px;
-      max-width: 70px;
-    }
   }
 
   .content_page {
@@ -85,14 +79,15 @@ main {
     .overflow_sidebar {
       position: fixed;
       bottom: 0;
-      left: -100%;
+      left: 0;
       height: calc(100% - 45px);
       z-index: 998;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.758);
+      display: none;
 
       &.active {
-        left: 0;
+        display: block;
       }
     }
 
@@ -100,26 +95,22 @@ main {
       width: 250px;
       position: fixed;
       bottom: 0;
-      left: 0;
-      height: calc(100% - 45px);
+      left: -100%;
+      
       z-index: 999;
+      transition: all 0.3s;
+      height: 100%;
 
-      &.close_sidebar {
-        position: fixed;
-        right: -100%;
-        width: 0;
-        height: 100%;
-        transition: all 0.3s;
+      &.open_sidebar {
+        left: 0;
+        height: calc(100% - 45px);
       }
     }
 
     .content_page {
       width: 100%;
-      margin-left: 0;
-
-      &.close_sidebar {
-        width: 100%;
-      }
+      margin-left: 0; 
+      width: 100%;
     }
   }
 }

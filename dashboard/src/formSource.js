@@ -18,6 +18,12 @@ export const userInputs = [
     idInput: "email",
   },
   {
+    id: 3,
+    type: "password",
+    label: "Password",
+    idInput: "password",
+  },
+  {
     id: 4,
     type: "number",
     label: "Phone Number",
