@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { projectInputs } from "../../formSource";
 import upload from "../../utils/upload";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ const AddUpdateProject = () => {
   const { id } = useParams();
   const [mainImg, setMainImg] = useState("");
   const [images, setImages] = useState(null);
+  const [videos, setVideos] = useState([]);
   const [inputs, setInputs] = useState({
     title: "",
     type: "",
@@ -49,15 +50,16 @@ const AddUpdateProject = () => {
           ...inputs,
           images: urls,
           mainImg: cover,
+          videos
         });
         toast.success("create project successfull");
         navigate("/projects");
-        
       } else if (location.pathname.split("/")[2] === "update") {
         await apiRequest.put(`projects/update-project/${id}`, {
           ...inputs,
           images: urls,
           mainImg: cover,
+          videos
         });
         toast.success("update project successfull");
         navigate("/projects");
@@ -69,6 +71,20 @@ const AddUpdateProject = () => {
     }
   };
 
+  // handleLinksVideo
+  const handleLinksVideo = (e) => {
+    let value = e.target.value
+
+    if (e.keyCode == 32 && value !== " ") {
+      setVideos([...videos, value]);
+      e.target.value = "";
+    }
+  };
+
+  const handleRemoveLinkVideo = (num) => {
+    const newArr = videos.filter((_,index) => index !== num)
+    setVideos(newArr)
+  }
   // get project
   useEffect(() => {
     const getProject = async () => {
@@ -87,7 +103,6 @@ const AddUpdateProject = () => {
     id ? getProject() : null;
   }, []);
 
-
   return (
     <div
       className="project_action_page section_dash relative"
@@ -102,7 +117,8 @@ const AddUpdateProject = () => {
               <img
                 src={
                   mainImg
-                    ? typeof mainImg === "string" && mainImg.includes("cloudinary")
+                    ? typeof mainImg === "string" &&
+                      mainImg.includes("cloudinary")
                       ? mainImg
                       : URL.createObjectURL(mainImg)
                     : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
@@ -179,6 +195,40 @@ const AddUpdateProject = () => {
                     );
                   })
                 : ""}
+              <div className="input_item">
+                <label htmlFor="username">Videos</label>
+                <input
+                  type="text"
+                  id="viados"
+                  onKeyUp={(e) => handleLinksVideo(e)}
+                />
+                <div className="flex items-center gap-3 mt-1 flex-wrap">
+                  {videos &&
+                    videos.map((ele, index) => {
+                      return (
+                        <div className="p-1 bg-slate-100 rounded shadow flex items-center gap-2" key={index}>
+                          <span className="text-[12px]">{ele}</span>
+                          <span className="cursor-pointer" onClick={() => handleRemoveLinkVideo(index)}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-[15px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
             </div>
             <button type="submit" className="btn_submit">
               Submit

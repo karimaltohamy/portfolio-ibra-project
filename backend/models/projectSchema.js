@@ -19,6 +19,9 @@ const projectSchema = new Schema({
   images: {
     type: [String],
   },
+  videos: {
+    type: [String],
+  },
   mainImg: {
     type: String,
   },

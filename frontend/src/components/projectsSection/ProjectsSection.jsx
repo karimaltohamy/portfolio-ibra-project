@@ -7,8 +7,14 @@ import imgProject5 from "../../assets/images/project-5.jpeg";
 import imgProject6 from "../../assets/images/project-6.jpeg";
 import { Link } from "react-router-dom";
 import "./projectsSection.scss";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios"
+
 
 const ProjectsSection = () => {
+  const [projects, setProjects] = useState()
+
   const data = [
     {
       id: 1,
@@ -72,24 +78,37 @@ const ProjectsSection = () => {
     },
   ];
 
+  useEffect(() => {
+    const getProjects = async () => {
+      try {
+          const {data} = await axios.get("/projects")
+          setProjects(data.projects)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getProjects()
+  }, [])
+
   return (
     <div className="projects_section">
       <div className="container m-auto">
         <div className="boxs grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
-          {data
-            ? data.map((item, index) => {
+          {projects
+            ? projects.map((item, index) => {
                 return (
                   <Link
-                    to={`/projectDetails/${item.id}`}
+                    to={`/projectDetails/${item._id}`}
                     className="box"
                     key={index}
                   >
                     <div className="image">
-                      <img src={item.img} />
+                      <img src={item.mainImg} />
                     </div>
                     <div className="text">
                       <span className="type">{item.type}</span>
-                      <h4 className="title">{item.name}</h4>
+                      <h4 className="title">{item.title}</h4>
                       <div className="icon_arrow">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
